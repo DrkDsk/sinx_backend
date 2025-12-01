@@ -18,16 +18,21 @@ RUN apt-get update && apt-get install -y \
 
 RUN docker-php-ext-install pdo_mysql mbstring zip
 
-WORKDIR /var/www/html
+ARG FOLDER_WEB=/var/www/html
+
+WORKDIR "${FOLDER_WEB}"
 
 # ----------------------------------------------------------
 # STAGE 2: Composer
 # ----------------------------------------------------------
 FROM composer:2 AS vendor
 
-WORKDIR /var/www/html
+ARG FOLDER_WEB=/var/www/html
 
-COPY .. /var/www/html
+WORKDIR "${FOLDER_WEB}"
+
+COPY .. "${FOLDER_WEB}"
+
 RUN composer install --no-dev --prefer-dist --optimize-autoloader
 
 
@@ -36,16 +41,16 @@ RUN composer install --no-dev --prefer-dist --optimize-autoloader
 # ----------------------------------------------------------
 FROM base AS production
 
-WORKDIR /var/www/html
+WORKDIR "${FOLDER_WEB}"
 
-COPY --from=vendor /var/www/html /var/www/html
+COPY --from=vendor "${FOLDER_WEB}" "${FOLDER_WEB}"
 
 
 # Opcional: Opcache recomendado para prod
 RUN docker-php-ext-enable opcache
 
 # Permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN sh -c "chown -R www-data:www-data $FOLDER_WEB/storage $FOLDER_WEB/bootstrap/cache"
 
 EXPOSE 9000
 
