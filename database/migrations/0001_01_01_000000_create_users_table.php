@@ -14,9 +14,13 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('password');
+            $table->string('nickname')->nullable();
+            $table->integer('check_in_reminder_hour')->nullable();
+            $table->boolean('has_completed_onboarding')->default(false);
+            $table->boolean('notifications_enabled')->default(true);
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
