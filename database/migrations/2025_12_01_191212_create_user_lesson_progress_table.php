@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('user_lesson_progress', function (Blueprint $table) {
             $table->id();
-            $table->boolean('completed')->default(false);
-            $table->timestamp('completed_at')->nullable();
 
             $table->foreignId('user_id')
                 ->unique()
@@ -26,6 +24,8 @@ return new class extends Migration
                 ->constrained('lessons')
                 ->onDelete('cascade');
 
+            $table->boolean('completed')->default(false);
+            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });
     }

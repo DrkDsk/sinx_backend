@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('commitments', function (Blueprint $table) {
             $table->id();
-            $table->text('text');
 
             $table->foreignId('user_id')
                 ->unique()
                 ->constrained('users')
                 ->onDelete('cascade');
 
+            $table->text('text');
             $table->timestamps();
         });
     }

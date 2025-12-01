@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('streaks', function (Blueprint $table) {
             $table->id();
-            $table->integer('current_count')->default(0);
-            $table->timestamp('last_increment_date')->nullable();
-            $table->timestamp('last_relapse_date')->nullable();
-            $table->date('start_date')->nullable();
 
             $table->foreignId('user_id')
                 ->unique()
                 ->constrained('users')
                 ->onDelete('cascade');
 
+            $table->integer('current_count')->default(0);
+            $table->timestamp('last_increment_date')->nullable();
+            $table->timestamp('last_relapse_date')->nullable();
+            $table->date('start_date')->nullable();
             $table->timestamps();
         });
     }

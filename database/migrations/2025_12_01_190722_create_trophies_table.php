@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('trophies', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onDelete('cascade');
+
             $table->integer('day_required');
             $table->text('description');
             $table->timestamp('earned_at')->nullable();
@@ -20,11 +25,6 @@ return new class extends Migration
             $table->string('tier');
             $table->string('title');
             $table->integer('trophy_number');
-
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->onDelete('cascade');
-
             $table->timestamps();
         });
     }

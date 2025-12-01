@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('replies', function (Blueprint $table) {
             $table->id();
-            $table->string('anon_handle');
-            $table->text('text');
 
             $table->foreignId('post_id')
                 ->constrained('posts')
@@ -24,6 +22,8 @@ return new class extends Migration
                 ->constrained('users')
                 ->onDelete('cascade');
 
+            $table->string('anon_handle');
+            $table->text('text');
             $table->timestamps();
         });
     }
