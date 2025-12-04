@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -37,13 +36,25 @@ class ResetPasswordNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         $url = config('app.frontend_url') . "/reset-password?token=$this->token&email=$notifiable->email";
+        $actionText = "Restablecer contraseña";
+        $troubleClicking = "Si tienes problemas para hacer clic en el botón $actionText, copia y pega la siguiente URL en tu navegador:";
 
         return (new MailMessage)
             ->subject('Restablecer contraseña')
-            ->line('Estás recibiendo este correo porque solicitaste un restablecimiento de contraseña.')
-            ->action('Restablecer contraseña', $url)
-            ->line('Si no solicitaste este cambio, ignora este correo.')
-            ->salutation('Saludos, el equipo de SinX');
+            ->markdown('vendor.notifications.email', [
+                'greeting' => 'Hola',
+                'salutation' => 'Saludos, el equipo de SinX',
+                'actionText' => $actionText,
+                'introLines' => [
+                    'Estás recibiendo este correo porque solicitaste un restablecimiento de contraseña.',
+                ],
+                'outroLines' => [
+                    'Si no solicitaste este cambio, ignora este correo.'
+                ],
+                'displayableActionUrl' => $url,
+                'troubleClicking' => $troubleClicking,
+                'actionUrl' => $url,
+            ]);
     }
 
     /**
