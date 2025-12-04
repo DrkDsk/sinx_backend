@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('anon_handle');
-            $table->unsignedInteger('likes')->default(0);
-            $table->text('text');
 
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
 
+            $table->string('anon_handle');
+            $table->unsignedInteger('likes')->default(0);
+            $table->text('text');
             $table->timestamps();
         });
     }

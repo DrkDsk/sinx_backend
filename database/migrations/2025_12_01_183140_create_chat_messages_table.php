@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('chat_messages', function (Blueprint $table) {
             $table->id();
-            $table->text('content');
-            $table->boolean('is_from_user')->default(true);
-            $table->timestamp('timestamp')->nullable();
 
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
 
+            $table->text('content');
+            $table->boolean('is_from_user')->default(true);
+            $table->timestamp('timestamp')->nullable();
             $table->timestamps();
         });
     }

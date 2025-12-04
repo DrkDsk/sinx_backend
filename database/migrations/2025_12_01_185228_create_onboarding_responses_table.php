@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('onboarding_responses', function (Blueprint $table) {
             $table->id();
-            $table->integer('question_number');
-            $table->text('response');
 
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
 
+            $table->integer('question_number');
+            $table->text('response');
             $table->timestamps();
         });
     }

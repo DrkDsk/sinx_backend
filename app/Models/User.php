@@ -23,6 +23,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'nickname',
+        'check_in_reminder_hour',
+        'has_completed_onboarding',
+        'notifications_enabled',
     ];
 
     /**

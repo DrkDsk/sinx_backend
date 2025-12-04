@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('check_ins', function (Blueprint $table) {
             $table->id();
-            $table->date('date')->nullable();
-            $table->integer('mood');
-            $table->text('notes')->nullable();
-            $table->integer('urges');
 
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
 
+            $table->date('date')->nullable();
+            $table->integer('mood');
+            $table->text('notes')->nullable();
+            $table->integer('urges');
             $table->timestamps();
         });
     }

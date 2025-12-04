@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('streak_adjustments', function (Blueprint $table) {
             $table->id();
-            $table->date('date')->nullable();
-            $table->integer('delta');
-            $table->text('note');
 
             $table->foreignId('streak_id')
                 ->constrained('streaks')
                 ->onDelete('cascade');
 
+            $table->date('date')->nullable();
+            $table->integer('delta');
+            $table->text('note');
             $table->timestamps();
         });
     }

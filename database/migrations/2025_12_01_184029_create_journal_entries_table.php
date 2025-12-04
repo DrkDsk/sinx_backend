@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('journal_entries', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onDelete('cascade');
+
             $table->string('color_type')->nullable();
             $table->text('content');
             $table->string('image_url')->nullable();
@@ -22,11 +27,6 @@ return new class extends Migration
             $table->float('position_y')->default(0);
             $table->float('rotation')->default(0);
             $table->json('tags')->nullable();
-
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->onDelete('cascade');
-
             $table->timestamps();
         });
     }

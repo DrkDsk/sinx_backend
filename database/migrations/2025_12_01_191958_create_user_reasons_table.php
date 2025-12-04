@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('user_reasons', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_index')->nullable();
-            $table->text('reason');
 
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
 
+            $table->integer('order_index')->nullable();
+            $table->text('reason');
             $table->timestamps();
         });
     }
