@@ -7,4 +7,5 @@ return [
     'min' => 'El campo :attribute debe tener mínimo :min caracteres',
     'max' => 'El campo :attribute debe tener máximo :max caracteres',
     'confirmed' => 'El campo :attribute no coincide',
+    'unique' => 'El campo :attribute ya está ocupado',
 ];
