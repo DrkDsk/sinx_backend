@@ -13,6 +13,8 @@ return [
     |
     */
 
+    'frontend_url' => env('FRONTEND_URL', 'localhost:3001'),
+
     'name' => env('APP_NAME', 'Laravel'),
 
     /*

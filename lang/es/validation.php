@@ -8,4 +8,5 @@ return [
     'max' => 'El campo :attribute debe tener máximo :max caracteres',
     'confirmed' => 'El campo :attribute no coincide',
     'unique' => 'El campo :attribute ya está ocupado',
+    'exist' => 'El campo :attribute no está registrado',
 ];

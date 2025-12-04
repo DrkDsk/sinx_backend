@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Resources\AuthResource;
 use App\Http\Resources\ErrorResource;
+use App\Http\Resources\UserResource;
 use App\Repositories\Contract\UserRepositoryInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -20,13 +21,19 @@ class AuthController extends Controller
     {
     }
 
-    public function getUser(Request $request) {
-        return $request->user();
+    public function user(Request $request): UserResource
+    {
+
+        /** @var User $user */
+        $user = $request->user();
+
+        return new UserResource($user, 'usuario obtenido correctamente');
     }
 
     public function login(LoginRequest $request): ErrorResource|AuthResource
     {
         $email = $request->input('email');
+
         $password = $request->input('password');
 
         /* @var User $user */
