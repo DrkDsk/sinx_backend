@@ -42,7 +42,8 @@ class ResetPasswordNotification extends Notification
             ->subject('Restablecer contraseña')
             ->line('Estás recibiendo este correo porque solicitaste un restablecimiento de contraseña.')
             ->action('Restablecer contraseña', $url)
-            ->line('Si no solicitaste este cambio, ignora este correo.');
+            ->line('Si no solicitaste este cambio, ignora este correo.')
+            ->salutation('Saludos, el equipo de SinX');
     }
 
     /**
