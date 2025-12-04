@@ -9,5 +9,5 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('user', [AuthController::class, 'getUser']);
+    Route::get('user', [AuthController::class, 'user']);
 });
