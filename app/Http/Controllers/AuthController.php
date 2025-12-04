@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Resources\AuthResource;
 use App\Http\Resources\ErrorResource;
+use App\Repositories\Contract\UserRepositoryInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,6 +16,10 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
 
+    public function __construct(private readonly UserRepositoryInterface $userRepository)
+    {
+    }
+
     public function getUser(Request $request) {
         return $request->user();
     }
@@ -24,7 +29,8 @@ class AuthController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
 
-        $user = User::query()->where('email', $email)->first();
+        /* @var User $user */
+        $user = $this->userRepository->getByField('email', $email);
 
         $isValid = $user && Hash::check($password, $user->getAuthPassword());
 
@@ -44,7 +50,8 @@ class AuthController extends Controller
 
             $user['password'] = Hash::make($user['password']);
 
-            $newUser = User::query()->create($user);
+            /* @var User $newUser */
+            $newUser = $this->userRepository->create($user);
 
             $token = $newUser->createToken("")->plainTextToken;
 
