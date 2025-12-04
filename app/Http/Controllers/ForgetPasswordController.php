@@ -26,10 +26,12 @@ class ForgetPasswordController extends Controller
             $request->only('email')
         );
 
+        $actionMessage = __($status);
+
         if ($status !== Password::RESET_LINK_SENT) {
-            return new ErrorResource("No se pudo enviar el correo por $status");
+            return new ErrorResource("$actionMessage");
         }
 
-        return new EmailResource($status);
+        return new EmailResource($actionMessage);
     }
 }
