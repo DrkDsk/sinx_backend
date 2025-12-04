@@ -37,7 +37,9 @@ class ResetPasswordNotification extends Notification
     {
         $url = config('app.frontend_url') . "/reset-password?token=$this->token&email=$notifiable->email";
         $actionText = "Restablecer contraseña";
-        $troubleClicking = "Si tienes problemas para hacer clic en el botón $actionText, copia y pega la siguiente URL en tu navegador:";
+        $troubleClicking = trans('passwords.trouble_clicking', [
+            'actionText' => $actionText,
+        ]);
 
         return (new MailMessage)
             ->subject('Restablecer contraseña')
